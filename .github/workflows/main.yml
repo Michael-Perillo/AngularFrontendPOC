@@ -10,6 +10,13 @@ jobs:
   build-and-test:
     runs-on: ubuntu-latest
 
+    # Add permissions to write artifacts
+    permissions:
+      contents: read
+      checks: write
+      id-token: write
+      artifacts: write
+
     steps:
     - uses: actions/checkout@v4
 
@@ -31,6 +38,9 @@ jobs:
     - name: Build
       run: npm run build
 
+    - name: List build output
+      run: ls -la dist/
+
     - name: Test with coverage
       run: npm run test:coverage
 
@@ -40,27 +50,40 @@ jobs:
         token: ${{ secrets.CODECOV_TOKEN }}
         slug: Michael-Perillo/AngularFrontendPOC
 
-#    - name: Upload build artifacts
-#      uses: actions/upload-artifact@v4
-#      with:
-#        name: build-output
-#        path: dist/
-#        retention-days: 7
+    - name: Upload build artifacts
+      uses: actions/upload-artifact@v4
+      with:
+        name: build-output
+        path: dist
+        retention-days: 7
+        if-no-files-found: error
 
   deploy:
     needs: build-and-test
     if: github.event_name == 'push' && github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
 
+    # Add permissions to read artifacts and write to GitHub Pages
+    permissions:
+      contents: write
+      pages: write
+      artifacts: read
+
     steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+
     - name: Download build artifacts
       uses: actions/download-artifact@v4
       with:
         name: build-output
-        path: dist/
+        path: ./dist
+
+    - name: List downloaded artifacts
+      run: ls -la ./dist
 
     - name: Deploy to GitHub Pages
       uses: JamesIves/github-pages-deploy-action@v4
       with:
-        folder: dist/browser
+        folder: ./dist/browser
         branch: gh-pages
