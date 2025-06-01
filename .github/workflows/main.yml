@@ -78,10 +78,13 @@ jobs:
         path: ./dist
 
     - name: List downloaded artifacts
-      run: ls -la ./dist
+      run: |
+        ls -la ./dist
+        echo "Checking for app directory content:"
+        ls -la ./dist/app || echo "No app directory content"
 
     - name: Deploy to GitHub Pages
       uses: JamesIves/github-pages-deploy-action@v4
       with:
-        folder: ./dist/browser
+        folder: ./dist/app
         branch: gh-pages
