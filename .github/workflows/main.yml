@@ -77,7 +77,7 @@ jobs:
         cache: 'npm'
 
     - name: Install dependencies
-      run: npm ci && ng add angular-cli-ghpages
+      run: npm ci && npm install angular-cli && ng add angular-cli-ghpages
 
     - name: Download build artifacts
       uses: actions/download-artifact@v4
