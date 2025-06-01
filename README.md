@@ -1,5 +1,8 @@
 # App
 
+[![Code Coverage](https://img.shields.io/badge/Code%20Coverage-80%25-success?style=flat)](https://github.com/your-username/AngularFrontendPOC/actions)
+[![Build Status](https://img.shields.io/github/workflow/status/your-username/AngularFrontendPOC/CI?label=CI&logo=github&style=flat)](https://github.com/your-username/AngularFrontendPOC/actions)
+
 This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 20.0.0.
 
 ## Development server
@@ -53,6 +56,34 @@ ng e2e
 ```
 
 Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
+
+## Testing
+
+Run the following command to execute the unit tests:
+
+```bash
+npm test
+```
+
+To run tests with code coverage:
+
+```bash
+npm run test:coverage
+```
+
+The code coverage reports can be found in the `coverage/app` directory after running the tests.
+
+## CI/CD Pipeline
+
+This project uses GitHub Actions for continuous integration and deployment. The workflow includes:
+
+- Code formatting check
+- Linting
+- Building the application
+- Running tests with coverage gates (minimum 80% coverage required)
+- Deploying to GitHub Pages
+
+You can view the build history and status in the [Actions tab](https://github.com/your-username/AngularFrontendPOC/actions).
 
 ## Additional Resources
 
