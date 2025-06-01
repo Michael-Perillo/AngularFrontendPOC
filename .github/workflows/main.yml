@@ -49,42 +49,34 @@ jobs:
         token: ${{ secrets.CODECOV_TOKEN }}
         slug: Michael-Perillo/AngularFrontendPOC
 
-    - name: Upload build artifacts
-      uses: actions/upload-artifact@v4
-      with:
-        name: build-output
-        path: dist
-        retention-days: 7
-        if-no-files-found: error
+#    - name: Upload build artifacts
+#      uses: actions/upload-artifact@v4
+#      with:
+#        name: build-output
+#        path: dist
+#        retention-days: 7
+#        if-no-files-found: error
 
   deploy:
     needs: build-and-test
     if: github.event_name == 'push' && github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
 
-    # Add permissions to read artifacts and write to GitHub Pages
     permissions:
-      contents: write
-      pages: write
+      contents: write # Allow to push to the gh-pages branch
+      pages: write # Allow to update GitHub Pages settings
 
     steps:
     - name: Checkout repository
       uses: actions/checkout@v4
 
-    - name: Download build artifacts
-      uses: actions/download-artifact@v4
-      with:
-        name: build-output
-        path: ./dist
-
-    - name: List downloaded artifacts
+    - name: List artifacts
       run: |
         ls -la ./dist
-        echo "Checking for app directory content:"
-        ls -la ./dist/app || echo "No app directory content"
+        ls -la ./dist/app
+        ls -la ./dist/app/browser
 
-    - name: Deploy to GitHub Pages
-      uses: JamesIves/github-pages-deploy-action@v4
-      with:
-        folder: ./dist/app/browser
-        branch: gh-pages
+    - name: Deploy to GitHub Pages using angular-cli-ghpages
+      run: npm run deploy:gh
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # angular-cli-ghpages uses this to push
