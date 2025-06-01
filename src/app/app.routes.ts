@@ -7,5 +7,5 @@ export const routes: Routes = [
   { path: '', component: HomeComponent },
   { path: 'about', component: AboutComponent },
   { path: 'features', component: FeaturesComponent },
-  { path: '**', redirectTo: '' }  // Redirect any unknown paths to home
+  { path: '**', redirectTo: '' }, // Redirect any unknown paths to home
 ];
