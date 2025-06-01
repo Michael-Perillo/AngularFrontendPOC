@@ -49,13 +49,13 @@ jobs:
         token: ${{ secrets.CODECOV_TOKEN }}
         slug: Michael-Perillo/AngularFrontendPOC
 
-#    - name: Upload build artifacts
-#      uses: actions/upload-artifact@v4
-#      with:
-#        name: build-output
-#        path: dist
-#        retention-days: 7
-#        if-no-files-found: error
+    - name: Upload build artifacts
+      uses: actions/upload-artifact@v4
+      with:
+        name: build-output
+        path: dist
+        retention-days: 7
+        if-no-files-found: error
 
   deploy:
     needs: build-and-test
@@ -69,6 +69,12 @@ jobs:
     steps:
     - name: Checkout repository
       uses: actions/checkout@v4
+
+    - name: Download build artifacts
+      uses: actions/download-artifact@v4
+      with:
+        name: build-output
+        path: ./dist
 
     - name: List artifacts
       run: |
