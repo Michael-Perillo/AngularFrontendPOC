@@ -1,8 +1,7 @@
 # App
 
 [![codecov](https://codecov.io/github/Michael-Perillo/AngularFrontendPOC/graph/badge.svg?token=TLNM11X205)](https://codecov.io/github/Michael-Perillo/AngularFrontendPOC)
-[![Build Status](https://img.shields.io/github/workflow/status/Michael-Perillo/AngularFrontendPOC/CI?label=CI&logo=github&style=flat)](https://github.com/your-username/AngularFrontendPOC/actions)
-
+[![CI/CD Pipeline](https://github.com/Michael-Perillo/AngularFrontendPOC/actions/workflows/main.yml/badge.svg)](https://github.com/Michael-Perillo/AngularFrontendPOC/actions/workflows/main.yml)
 This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 20.0.0.
 
 ## Development server
