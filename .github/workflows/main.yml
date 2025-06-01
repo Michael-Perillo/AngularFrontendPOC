@@ -35,7 +35,7 @@ jobs:
       run: npm run lint
 
     - name: Build
-      run: npm run build
+      run: ng build --base-href=/AngularFrontendPOC/
 
     - name: List build output
       run: ls -la dist/
