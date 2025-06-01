@@ -1,7 +1,7 @@
 # App
 
-[![Code Coverage](https://img.shields.io/badge/Code%20Coverage-80%25-success?style=flat)](https://github.com/your-username/AngularFrontendPOC/actions)
-[![Build Status](https://img.shields.io/github/workflow/status/your-username/AngularFrontendPOC/CI?label=CI&logo=github&style=flat)](https://github.com/your-username/AngularFrontendPOC/actions)
+[![codecov](https://codecov.io/github/Michael-Perillo/AngularFrontendPOC/graph/badge.svg?token=TLNM11X205)](https://codecov.io/github/Michael-Perillo/AngularFrontendPOC)
+[![Build Status](https://img.shields.io/github/workflow/status/Michael-Perillo/AngularFrontendPOC/CI?label=CI&logo=github&style=flat)](https://github.com/your-username/AngularFrontendPOC/actions)
 
 This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 20.0.0.
 
