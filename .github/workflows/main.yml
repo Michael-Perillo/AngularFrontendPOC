@@ -15,7 +15,6 @@ jobs:
       contents: read
       checks: write
       id-token: write
-      artifacts: write
 
     steps:
     - uses: actions/checkout@v4
@@ -67,7 +66,6 @@ jobs:
     permissions:
       contents: write
       pages: write
-      artifacts: read
 
     steps:
     - name: Checkout repository
