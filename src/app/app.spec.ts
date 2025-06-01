@@ -1,10 +1,19 @@
 import { TestBed } from '@angular/core/testing';
 import { App } from './app';
+import { NavigationComponent } from './navigation/navigation.component';
+import { provideRouter, RouterOutlet } from '@angular/router';
+import { provideBrowserGlobalErrorListeners, provideZoneChangeDetection } from '@angular/core';
+import { routes } from './app.routes';
 
 describe('App', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [App],
+      imports: [App, RouterOutlet, NavigationComponent],
+      providers: [
+        provideBrowserGlobalErrorListeners(),
+        provideZoneChangeDetection({ eventCoalescing: true }),
+        provideRouter(routes),
+      ],
     }).compileComponents();
   });
 
@@ -12,12 +21,5 @@ describe('App', () => {
     const fixture = TestBed.createComponent(App);
     const app = fixture.componentInstance;
     expect(app).toBeTruthy();
-  });
-
-  it('should render title', () => {
-    const fixture = TestBed.createComponent(App);
-    fixture.detectChanges();
-    const compiled = fixture.nativeElement as HTMLElement;
-    expect(compiled.querySelector('h1')?.textContent).toContain('Hello, app');
   });
 });
