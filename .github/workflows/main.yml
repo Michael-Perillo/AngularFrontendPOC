@@ -49,41 +49,40 @@ jobs:
         token: ${{ secrets.CODECOV_TOKEN }}
         slug: Michael-Perillo/AngularFrontendPOC
 
-#    - name: Upload build artifacts
-#      uses: actions/upload-artifact@v4
-#      with:
-#        name: build-output
-#        path: dist
-#        retention-days: 7
-#        if-no-files-found: error
+    - name: Upload build artifacts
+      uses: actions/upload-artifact@v4
+      with:
+        name: build-output
+        path: dist
+        retention-days: 7
+        if-no-files-found: error
 
-  build-and-deploy:
-    permissions:
-      contents: read
-      pages: write
-      id-token: write
-
+  deploy:
+    needs: build-and-test
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
+
+    permissions:
+      contents: write # Allow to push to the gh-pages branch
+      pages: write # Allow to update GitHub Pages settings
+
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
+    - name: Checkout repository
+      uses: actions/checkout@v4
 
-      - name: Set up Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: '20'
-          cache: 'npm'
+    - name: Download build artifacts
+      uses: actions/download-artifact@v4
+      with:
+        name: build-output
+        path: ./dist
 
-      - name: Install dependencies
-        run: npm install
+    - name: List artifacts
+      run: |
+        ls -la ./dist
+        ls -la ./dist/app
+        ls -la ./dist/app/browser
 
-      - name: Build application
-        run: npm run build:ci # Uses the build:ci script from package.json
-
-      - name: Upload artifact
-        uses: actions/upload-pages-artifact@v3
-        with:
-          path: ./dist/app/browser/ # Adjusted path for Angular application builder output
+    - name: Deploy to GitHub Pages using angular-cli-ghpages
+      run: npx angular-cli-ghpages --dir=dist/app/browser --repo=https://github.com/Michael-Perillo/AngularFrontendPOC.git --name=\"Michael-Perillo\" --email=michael@perillo.me
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # angular-cli-ghpages uses this to push
