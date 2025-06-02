@@ -83,6 +83,6 @@ jobs:
         ls -la ./dist/app/browser
 
     - name: Deploy to GitHub Pages using angular-cli-ghpages
-      run: npx angular-cli-ghpages --dir=dist/app/browser --base-href=/AngularFrontendPOC/ --repo=https://github.com/Michael-Perillo/AngularFrontendPOC.git --name=\"Michael-Perillo\" --email=michael@perillo.me
+      run: npx angular-cli-ghpages --dir=dist/app/browser --repo=https://github.com/Michael-Perillo/AngularFrontendPOC.git --name=\"Michael-Perillo\" --email=michael@perillo.me
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # angular-cli-ghpages uses this to push
